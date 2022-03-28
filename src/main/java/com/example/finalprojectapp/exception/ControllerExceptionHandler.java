@@ -14,9 +14,23 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.validation.ConstraintViolationException;
 import java.util.Comparator;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @Slf4j
 @RestControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
+
+
+    @ExceptionHandler(ManufacturerNotFoudException.class)
+        public ResponseEntity<Object> handleManufacturerNotFoudException(ManufacturerNotFoudException e){
+            return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
+        }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<Object> handleManufacturerNotFoudException(ProductNotFoundException e){
+        return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
+    }
+
     @Value
     private static class FieldErrorJson implements Comparable<FieldErrorJson> {
 

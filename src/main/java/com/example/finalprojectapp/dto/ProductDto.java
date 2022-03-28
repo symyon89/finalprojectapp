@@ -7,52 +7,50 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
 public class ProductDto implements Serializable {
-    @Schema(description = "id product", example = "74478911-6424-47a7-911c-0daa262144fa", required = true)
-    @NotNull
-    private final UUID id;
+    @Schema(description = "id product, if is null will create a new product", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
+    private UUID id;
 
     @Schema(description = "product name,max length 30", example = "Product", required = true)
     @NotEmpty
     @Length(max = 30)
-    private final String name;
+    private String name;
 
     @Schema(description = "product sku,max length 20", example = "PROD123")
     @Length(max = 20)
-    private final String sku;
+    private String sku;
 
     @Schema(description = "product ean,max length 13", example = "4012345678901")
     @Length(max = 13)
-    private final String ean;
+    private String ean;
 
     @Schema(description = "product description, max 255 characters", example = "This is the best product")
     @Length(max = 255)
-    private final String description;
+    private String description;
 
     @Schema(description = "product price, the value must 0 or positive", example = "0")
     @Min(value = 0L, message = "The value must be positive")
-    private final Double price;
+    private  Double price;
 
-    @Schema(description = "Manufacturer id", example = "74478911-6424-47a7-911c-0daa262144fa")
+    @Schema(description = "Manufacturer id, if is null will not asociate a manufacturer", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID manufacturerID;
 
-    @Schema(description = "product date added", example = "yyyy/MM/dd HH:mm:ss")
-    private final LocalDateTime dateAdded;
+    @Schema(description = "product date added")
+    private  LocalDateTime dateAdded;
 
-    @Schema(description = "last product date modified", example = "yyyy/MM/dd HH:mm:ss")
-    private final LocalDateTime lastDateModified;
+    @Schema(description = "last product date modified")
+    private LocalDateTime lastDateModified;
 
     public void setManufacturerID(Manufacturer manufacturer) {
         this.manufacturerID = manufacturer.getId();
     }
     public void setManufacturerID(String id) {
-        if(!id.isBlank())
+        if(id != null && !id.isBlank())
             this.manufacturerID = UUID.fromString(id);
     }
 }

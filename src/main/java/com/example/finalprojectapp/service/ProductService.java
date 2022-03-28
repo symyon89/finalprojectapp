@@ -1,6 +1,7 @@
 package com.example.finalprojectapp.service;
 
 import com.example.finalprojectapp.dto.ProductDto;
+import com.example.finalprojectapp.exception.ProductNotFoundException;
 import com.example.finalprojectapp.model.Manufacturer;
 import com.example.finalprojectapp.model.Product;
 import com.example.finalprojectapp.repository.ProductRepository;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -29,11 +31,31 @@ public class ProductService {
 
     public ProductDto save(@Valid ProductDto productDto){
         Product product = modelMapper.map(productDto,Product.class);
-
-        if (productDto.getManufacturerID() != null) {
-            product.setManufacturer(modelMapper.map(manufacturerService.findById(productDto.getManufacturerID()), Manufacturer.class));
-        }
-
+        checkIsManufacturerExistsAndGetManufacturer(productDto,product);
+        checkIsProductExists(productDto);
         return modelMapper.map(productRepository.save(product),ProductDto.class);
+    }
+
+    public ProductDto findById(UUID id) {
+        return modelMapper.map(productRepository.findById(id).orElseThrow(ProductNotFoundException::new),ProductDto.class);
+    }
+
+    public void deleteById(UUID id) {
+        checkIsProductExists(id);
+        productRepository.deleteById(id);
+    }
+
+    private void checkIsManufacturerExistsAndGetManufacturer(ProductDto productDto, Product product){
+        if (productDto.getManufacturerID() != null)
+            product.setManufacturer(modelMapper.map(manufacturerService.findById(productDto.getManufacturerID()), Manufacturer.class));
+    }
+
+    private void checkIsProductExists(ProductDto productDto){
+        if (productDto.getId() != null)
+            this.findById(productDto.getId());
+    }
+    private void checkIsProductExists(UUID id){
+        if (id != null)
+            this.findById(id);
     }
 }
