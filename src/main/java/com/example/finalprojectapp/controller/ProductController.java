@@ -8,9 +8,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,9 +20,9 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @Operation(summary = "GET request body", description = "Get all products")
+    @Operation(summary = "GET request", description = "Get all products")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "all good"),
+            @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal error")
     }
@@ -32,5 +30,17 @@ public class ProductController {
     @GetMapping
     public List<ProductDto> findAllProducts(){
         return productService.findAllProducts();
+    }
+
+    @Operation(summary = "Post request body", description = "save a product")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Internal error")
+    }
+    )
+    @PostMapping
+    public ProductDto save(@RequestBody ProductDto productDto){
+        return productService.save(productDto);
     }
 }
