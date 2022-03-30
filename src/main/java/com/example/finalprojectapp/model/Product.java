@@ -38,12 +38,12 @@ public class Product {
     @Min(value = 0L, message = "The value must be positive")
     private Double price;
 
+    private Double quantity;
+
     @ManyToOne
     private Manufacturer manufacturer;
 
-
     private LocalDateTime dateAdded;
-
 
     private LocalDateTime lastDateModified;
 

@@ -69,8 +69,6 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteByID(@PathVariable UUID id) {
         productService.deleteById(id);
-
     }
-
 
 }

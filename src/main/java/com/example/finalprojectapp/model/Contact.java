@@ -26,6 +26,10 @@ public class Contact {
     @Schema(description = "id manufacturer", example = "74478911-6424-47a7-911c-0daa262144fa", required = true)
     private UUID id;
 
+    @Schema(description = "boolean, true if is primary contact, only one contact can be primary", example = "1")
+    @Column(columnDefinition = "boolean default false")
+    private boolean isPrimary;
+
     @Schema(description = "contact name, max length 20", example = "Alice", required = true)
     @NotBlank
     @Column(length = 20)
@@ -39,4 +43,6 @@ public class Contact {
     @Schema(description = "contact email, max length 12", example = "+40712312313", required = true)
     @Column(length = 12)
     private String phone;
+
+
 }

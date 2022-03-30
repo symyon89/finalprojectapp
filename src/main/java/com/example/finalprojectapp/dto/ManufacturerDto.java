@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,6 +16,8 @@ public class ManufacturerDto implements Serializable {
     private UUID id;
     @Schema(description = "manufacturer name, max length 30", example = "SONY", required = true)
     @Length(max = 30)
+    @NotBlank
+    @NotNull
     private  String name;
     @Schema(description = "manufacturer description,max length 255", example = "this is the best electronics manufacturer")
     @Length(max = 255)

@@ -37,6 +37,9 @@ public class ProductDto implements Serializable {
     @Min(value = 0L, message = "The value must be positive")
     private  Double price;
 
+    @Schema(description = "product quantity", example = "2")
+    private Double quantity;
+
     @Schema(description = "Manufacturer id, if is null will not asociate a manufacturer", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID manufacturerID;
 
