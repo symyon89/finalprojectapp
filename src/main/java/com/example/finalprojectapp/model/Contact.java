@@ -1,9 +1,9 @@
 package com.example.finalprojectapp.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,24 +23,20 @@ public class Contact {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "BINARY(16)")
     @NotNull
-    @Schema(description = "id manufacturer", example = "74478911-6424-47a7-911c-0daa262144fa", required = true)
     private UUID id;
 
-    @Schema(description = "boolean, true if is primary contact, only one contact can be primary", example = "1")
     @Column(columnDefinition = "boolean default false")
     private boolean isPrimary;
 
-    @Schema(description = "contact name, max length 20", example = "Alice", required = true)
     @NotBlank
+    @NotNull
     @Column(length = 20)
     private String name;
 
-    @Schema(description = "contact email, max length 25", example = "alice@example.com")
     @Email
     @Column(length = 25)
     private String email;
 
-    @Schema(description = "contact email, max length 12", example = "+40712312313", required = true)
     @Column(length = 12)
     private String phone;
 

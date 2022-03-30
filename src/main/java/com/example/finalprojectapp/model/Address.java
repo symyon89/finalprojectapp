@@ -1,9 +1,9 @@
 package com.example.finalprojectapp.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +21,33 @@ public class Address {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "BINARY(16)")
     @NotNull
-    @Schema(description = "id address", example = "74478911-6424-47a7-911c-0daa262144fa", required = true)
     private UUID id;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean isPrimaryBilling;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean isPrimaryDelivery;
+
+    @Column(length = 60)
+    private String country;
+
+    @Column(length = 60)
+    private String county;
+
+    @Column(length = 60)
+    private String city;
+
+    @Column(length = 60)
+    private String street;
+
+    @Column(length = 60)
+    private String number;
+
+    @Column(length = 60)
+    private String otherDetails;
+
+    @Column(length = 10)
+    private String postalCode;
 
 }
