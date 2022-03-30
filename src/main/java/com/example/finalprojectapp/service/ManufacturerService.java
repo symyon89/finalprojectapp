@@ -1,7 +1,7 @@
 package com.example.finalprojectapp.service;
 
 import com.example.finalprojectapp.dto.ManufacturerDto;
-import com.example.finalprojectapp.exception.ManufacturerNotFoudException;
+import com.example.finalprojectapp.exception.ManufacturerNotFoundException;
 import com.example.finalprojectapp.repository.ManufacturerRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -17,6 +17,6 @@ public class ManufacturerService {
 
 
     public ManufacturerDto findById(UUID id){
-        return modelMapper.map(manufacturerRepository.findById(id).orElseThrow(ManufacturerNotFoudException::new),ManufacturerDto.class);
+        return modelMapper.map(manufacturerRepository.findById(id).orElseThrow(ManufacturerNotFoundException::new),ManufacturerDto.class);
     }
 }

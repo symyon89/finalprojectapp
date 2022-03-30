@@ -21,13 +21,13 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(ManufacturerNotFoudException.class)
-        public ResponseEntity<Object> handleManufacturerNotFoudException(ManufacturerNotFoudException e){
+    @ExceptionHandler(ManufacturerNotFoundException.class)
+        public ResponseEntity<Object> handleManufacturerNotFoundException(ManufacturerNotFoundException e){
             return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
         }
 
     @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<Object> handleManufacturerNotFoudException(ProductNotFoundException e){
+    public ResponseEntity<Object> handleManufacturerNotFoundException(ProductNotFoundException e){
         return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
     }
 
