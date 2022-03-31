@@ -32,7 +32,7 @@ public class ProductService {
     public ProductDto save(@Valid ProductDto productDto){
         Product product = modelMapper.map(productDto,Product.class);
         checkIsManufacturerExistsAndGetManufacturer(productDto,product);
-        checkIsProductExists(productDto);
+        checkIsProductExists(productDto.getId());
         return modelMapper.map(productRepository.save(product),ProductDto.class);
     }
 
@@ -50,10 +50,6 @@ public class ProductService {
             product.setManufacturer(modelMapper.map(manufacturerService.findById(productDto.getManufacturerID()), Manufacturer.class));
     }
 
-    private void checkIsProductExists(ProductDto productDto){
-        if (productDto.getId() != null)
-            this.findById(productDto.getId());
-    }
     private void checkIsProductExists(UUID id){
         if (id != null)
             this.findById(id);

@@ -1,10 +1,8 @@
 package com.example.finalprojectapp.controller;
 
-import com.example.finalprojectapp.dto.ProductDto;
-import com.example.finalprojectapp.service.ProductService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import com.example.finalprojectapp.dto.ManufacturerDto;
+import com.example.finalprojectapp.service.ManufacturerService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -14,15 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@OpenAPIDefinition(info = @Info(title = "Application Controller", description = "Rest controller", version = "1"))
+
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "product")
-public class ProductController {
+@RequestMapping("manufacturer")
+public class ManufacturerController {
 
-    private final ProductService productService;
+    private ManufacturerService manufacturerService;
 
-    @Operation(summary = "GET request", description = "Get all products")
+    @Operation(summary = "GET request", description = "Get all manufacturers")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -30,11 +28,11 @@ public class ProductController {
     }
     )
     @GetMapping
-    public List<ProductDto> findAllProducts() {
-        return productService.findAllProducts();
+    public List<ManufacturerDto> findAll() {
+        return manufacturerService.findAll();
     }
 
-    @Operation(summary = "GET request by id", description = "Get product by id")
+    @Operation(summary = "GET request", description = "Get manufacturer by id ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -42,11 +40,11 @@ public class ProductController {
     }
     )
     @GetMapping("{id}")
-    public ProductDto findById(@PathVariable UUID id) {
-        return productService.findById(id);
+    public ManufacturerDto findById(@PathVariable UUID id) {
+        return manufacturerService.findById(id);
     }
 
-    @Operation(summary = "Post request body", description = "save a product")
+    @Operation(summary = "Post request", description = "Save manufacturer ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -54,21 +52,20 @@ public class ProductController {
     }
     )
     @PostMapping
-    public ProductDto save(@RequestBody ProductDto productDto) {
-        return productService.save(productDto);
+    public ManufacturerDto findById(@RequestBody ManufacturerDto manufacturerDto) {
+        return manufacturerService.save(manufacturerDto);
     }
 
-    @Operation(summary = "Delete by id", description = "Delete a product by id")
+    @Operation(summary = "Delete request", description = "Delete manufacturer by id ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "500", description = "Internal error")
     }
     )
-    @DeleteMapping("{id}")
+    @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public void deleteByID(@PathVariable UUID id) {
-        productService.deleteById(id);
+    public void deleteById(@PathVariable UUID id) {
+        manufacturerService.deleteById(id);
     }
-
 }
