@@ -33,7 +33,7 @@ public class ProductDto implements Serializable {
     @Length(max = 255)
     private String description;
 
-    @Schema(description = "product price, the value must 0 or positive", example = "0")
+    @Schema(description = "product price, the value must be 0 or positive", example = "0")
     @Min(value = 0L, message = "The value must be positive")
     private  Double price;
 

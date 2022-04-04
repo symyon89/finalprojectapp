@@ -21,7 +21,10 @@ public class ManufacturerService {
     private final ModelMapper modelMapper;
 
     public List<ManufacturerDto> findAll() {
-        return manufacturerRepository.findAll().stream().map(manufacturer -> modelMapper.map(manufacturer,ManufacturerDto.class)).toList();
+        return manufacturerRepository.findAll()
+                .stream()
+                .map(manufacturer -> modelMapper.map(manufacturer,ManufacturerDto.class))
+                .toList();
     }
 
     public ManufacturerDto findById(UUID id){

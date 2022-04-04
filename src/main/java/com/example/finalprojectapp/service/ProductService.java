@@ -24,7 +24,8 @@ public class ProductService {
     private final ModelMapper modelMapper;
 
     public List<ProductDto> findAllProducts() {
-        return productRepository.findAll().stream()
+        return productRepository.findAll()
+                .stream()
                 .map(product -> modelMapper.map(product,ProductDto.class))
                 .toList();
     }
