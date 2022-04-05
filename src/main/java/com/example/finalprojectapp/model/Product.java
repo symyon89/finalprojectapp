@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -35,13 +36,16 @@ public class Product {
 
     private String description;
 
-    @Min(value = 0L, message = "The value must be positive")
+    @PositiveOrZero(message = "The value must be positive")
     private Double price;
 
     private Double quantity;
 
     @ManyToOne
     private Manufacturer manufacturer;
+
+    @ManyToOne
+    private Vat vat;
 
     private LocalDateTime dateAdded;
 

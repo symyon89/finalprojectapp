@@ -37,11 +37,17 @@ public class ProductDto implements Serializable {
     @Min(value = 0L, message = "The value must be positive")
     private  Double price;
 
+    @Schema(description = "price with Vat", example = "0")
+    private Double priceWithVat;
+
     @Schema(description = "product quantity", example = "2")
     private Double quantity;
 
     @Schema(description = "Manufacturer id, if is null will not asociate a manufacturer", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID manufacturerID;
+
+    @Schema(description = "Vat id, f is null will not asociate a vat, and price with vat will be without added value", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
+    private UUID vatID;
 
     @Schema(description = "product date added")
     private  LocalDateTime dateAdded;
@@ -49,11 +55,23 @@ public class ProductDto implements Serializable {
     @Schema(description = "last product date modified")
     private LocalDateTime lastDateModified;
 
+
+
     public void setManufacturerID(Manufacturer manufacturer) {
         this.manufacturerID = manufacturer.getId();
     }
+
     public void setManufacturerID(String id) {
         if(id != null && !id.isBlank())
             this.manufacturerID = UUID.fromString(id);
+    }
+
+    public void setVatID(VatDto vatDto) {
+        this.vatID = vatDto.getId();
+    }
+
+    public void setVatID(String vatID) {
+        if(vatID != null && !vatID.isBlank())
+            this.vatID = UUID.fromString(vatID);
     }
 }

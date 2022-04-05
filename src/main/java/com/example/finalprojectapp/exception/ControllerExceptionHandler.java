@@ -20,6 +20,10 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RestControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(VatNotFoundException.class)
+    public ResponseEntity<Object> handleManufacturerNotFoundException(VatNotFoundException e){
+        return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
+    }
 
     @ExceptionHandler(ManufacturerNotFoundException.class)
         public ResponseEntity<Object> handleManufacturerNotFoundException(ManufacturerNotFoundException e){
