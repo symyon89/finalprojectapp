@@ -1,6 +1,7 @@
 package com.example.finalprojectapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -45,9 +46,7 @@ public class Product {
 
     @ManyToOne
     private Vat vat;
-
     private LocalDateTime dateAdded;
-
     private LocalDateTime lastDateModified;
 
 }

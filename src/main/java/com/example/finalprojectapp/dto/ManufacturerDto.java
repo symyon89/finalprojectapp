@@ -1,5 +1,6 @@
 package com.example.finalprojectapp.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -22,8 +23,10 @@ public class ManufacturerDto implements Serializable {
     @Schema(description = "manufacturer description,max length 255", example = "this is the best electronics manufacturer")
     @Length(max = 255)
     private String description;
-    @Schema(description = "manufacturer date added")
+    @Schema(description = "manufacturer date added",pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateAdded;
-    @Schema(description = "last manufacturer date modified")
+    @Schema(description = "last manufacturer date modified",pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastDateModified;
 }

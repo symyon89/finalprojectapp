@@ -17,7 +17,7 @@ import java.util.UUID;
 @OpenAPIDefinition(info = @Info(title = "Application Controller", description = "Rest controller", version = "1"))
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "product")
+@RequestMapping("product")
 public class ProductController {
 
     private final ProductService productService;

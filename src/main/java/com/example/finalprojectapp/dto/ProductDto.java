@@ -2,6 +2,7 @@ package com.example.finalprojectapp.dto;
 
 import com.example.finalprojectapp.exception.InvalidUUIDException;
 import com.example.finalprojectapp.model.Manufacturer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -52,10 +53,12 @@ public class ProductDto implements Serializable {
     @Schema(description = "Vat id, if is null will not associated a vat, and price with vat will be without added value", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID vatID;
 
-    @Schema(description = "product date added")
+    @Schema(description = "product date added",pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private  LocalDateTime dateAdded;
 
-    @Schema(description = "last product date modified")
+    @Schema(description = "last product date modified",pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastDateModified;
 
 
@@ -86,6 +89,5 @@ public class ProductDto implements Serializable {
                 log.error(e.getMessage());
                 throw new InvalidUUIDException();
             }
-
     }
 }
