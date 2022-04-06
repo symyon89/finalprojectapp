@@ -1,8 +1,10 @@
 package com.example.finalprojectapp.dto;
 
+import com.example.finalprojectapp.exception.InvalidUUIDException;
 import com.example.finalprojectapp.model.Manufacturer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
@@ -11,6 +13,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Slf4j
 @Data
 public class ProductDto implements Serializable {
     @Schema(description = "id product, if is null will create a new product", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
@@ -43,10 +46,10 @@ public class ProductDto implements Serializable {
     @Schema(description = "product quantity", example = "2")
     private Double quantity;
 
-    @Schema(description = "Manufacturer id, if is null will not asociate a manufacturer", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
+    @Schema(description = "Manufacturer id, if is null will not associated a manufacturer", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID manufacturerID;
 
-    @Schema(description = "Vat id, f is null will not asociate a vat, and price with vat will be without added value", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
+    @Schema(description = "Vat id, if is null will not associated a vat, and price with vat will be without added value", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID vatID;
 
     @Schema(description = "product date added")
@@ -63,7 +66,12 @@ public class ProductDto implements Serializable {
 
     public void setManufacturerID(String id) {
         if(id != null && !id.isBlank())
-            this.manufacturerID = UUID.fromString(id);
+            try{
+                this.id = UUID.fromString(id);
+            }catch (IllegalArgumentException e){
+                log.error(e.getMessage());
+                throw new InvalidUUIDException();
+            }
     }
 
     public void setVatID(VatDto vatDto) {
@@ -72,6 +80,12 @@ public class ProductDto implements Serializable {
 
     public void setVatID(String vatID) {
         if(vatID != null && !vatID.isBlank())
-            this.vatID = UUID.fromString(vatID);
+            try{
+                this.vatID = UUID.fromString(vatID);
+            }catch (IllegalArgumentException e){
+                log.error(e.getMessage());
+                throw new InvalidUUIDException();
+            }
+
     }
 }

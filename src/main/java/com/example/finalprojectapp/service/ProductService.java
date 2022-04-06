@@ -28,21 +28,21 @@ public class ProductService {
     public List<ProductDto> findAllProducts() {
         return productRepository.findAll()
                 .stream()
-                .map(product -> modelMapper.map(product,ProductDto.class))
+                .map(product -> modelMapper.map(product, ProductDto.class))
                 .map(this::calculatePriceWithVat)
                 .toList();
     }
 
-    public ProductDto save(@Valid ProductDto productDto){
-        Product product = modelMapper.map(productDto,Product.class);
-        checkIfManufacturerExistsAndSetManufacturer(productDto,product);
-        checkIfVatExistsAndSetVat(productDto,product);
+    public ProductDto save(@Valid ProductDto productDto) {
+        Product product = modelMapper.map(productDto, Product.class);
+        checkIfManufacturerExistsAndSetManufacturer(productDto, product);
+        checkIfVatExistsAndSetVat(productDto, product);
         checkIsProductExists(productDto.getId());
-        return this.calculatePriceWithVat(modelMapper.map(productRepository.save(product),ProductDto.class));
+        return this.calculatePriceWithVat(modelMapper.map(productRepository.save(product), ProductDto.class));
     }
 
     public ProductDto findById(UUID id) {
-        return this.calculatePriceWithVat(modelMapper.map(productRepository.findById(id).orElseThrow(ProductNotFoundException::new),ProductDto.class));
+        return this.calculatePriceWithVat(modelMapper.map(productRepository.findById(id).orElseThrow(ProductNotFoundException::new), ProductDto.class));
     }
 
     public void deleteById(UUID id) {
@@ -50,23 +50,24 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    private void checkIfManufacturerExistsAndSetManufacturer(ProductDto productDto, Product product){
+    private void checkIfManufacturerExistsAndSetManufacturer(ProductDto productDto, Product product) {
         if (productDto.getManufacturerID() != null)
-                product.setManufacturer(modelMapper.map(manufacturerService.findById(productDto.getManufacturerID()), Manufacturer.class));
+            product.setManufacturer(modelMapper.map(manufacturerService.findById(productDto.getManufacturerID()), Manufacturer.class));
     }
 
     private void checkIfVatExistsAndSetVat(ProductDto productDto, Product product) {
         if (productDto.getVatID() != null)
-                product.setVat(modelMapper.map(vatService.findById(productDto.getVatID()), Vat.class));
+            product.setVat(modelMapper.map(vatService.findById(productDto.getVatID()), Vat.class));
     }
 
-    private void checkIsProductExists(UUID id){
+    private void checkIsProductExists(UUID id) {
         if (id != null)
             this.findById(id);
     }
 
-    private ProductDto calculatePriceWithVat(ProductDto productDto){
-        if(productDto.getVatID() !=null)
+    //TODO try with @Query
+    private ProductDto calculatePriceWithVat(ProductDto productDto) {
+        if (productDto.getVatID() != null)
             productDto.setPriceWithVat(productDto.getPrice() + (vatService.findById(productDto.getVatID()).getPercentage() / 100.0));
         else
             productDto.setPriceWithVat(productDto.getPrice());

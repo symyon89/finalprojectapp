@@ -14,24 +14,30 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.validation.ConstraintViolationException;
 import java.util.Comparator;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Slf4j
 @RestControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(InvalidUUIDException.class)
+    public ResponseEntity<Object> handleInvalidUUIDException(InvalidUUIDException e) {
+        return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
+    }
+
     @ExceptionHandler(VatNotFoundException.class)
-    public ResponseEntity<Object> handleManufacturerNotFoundException(VatNotFoundException e){
+    public ResponseEntity<Object> handleManufacturerNotFoundException(VatNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
     }
 
     @ExceptionHandler(ManufacturerNotFoundException.class)
-        public ResponseEntity<Object> handleManufacturerNotFoundException(ManufacturerNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
-        }
+    public ResponseEntity<Object> handleManufacturerNotFoundException(ManufacturerNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
+    }
 
     @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<Object> handleManufacturerNotFoundException(ProductNotFoundException e){
+    public ResponseEntity<Object> handleManufacturerNotFoundException(ProductNotFoundException e) {
         return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
     }
 
