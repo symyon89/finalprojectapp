@@ -52,7 +52,7 @@ public class ManufacturerController {
     }
     )
     @PostMapping
-    public ManufacturerDto findById(@RequestBody ManufacturerDto manufacturerDto) {
+    public ManufacturerDto save(@RequestBody ManufacturerDto manufacturerDto) {
         return manufacturerService.save(manufacturerDto);
     }
 

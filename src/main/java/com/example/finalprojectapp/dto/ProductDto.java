@@ -2,11 +2,11 @@ package com.example.finalprojectapp.dto;
 
 import com.example.finalprojectapp.exception.InvalidUUIDException;
 import com.example.finalprojectapp.model.Manufacturer;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -16,6 +16,9 @@ import java.util.UUID;
 
 @Slf4j
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductDto implements Serializable {
     @Schema(description = "id product, if is null will create a new product", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID id;
@@ -54,11 +57,11 @@ public class ProductDto implements Serializable {
     private UUID vatID;
 
     @Schema(description = "product date added",pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private  LocalDateTime dateAdded;
 
     @Schema(description = "last product date modified",pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastDateModified;
 
 

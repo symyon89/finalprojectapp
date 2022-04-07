@@ -1,6 +1,5 @@
 package com.example.finalprojectapp.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -43,10 +42,8 @@ public class CustomerDto implements Serializable {
     private final List<AddressDto> addressList;
 
     @Schema(description = "customer date added",pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime dateAdded;
 
     @Schema(description = "last customer date modified",pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime lastDateModified;
 }
