@@ -80,7 +80,6 @@ public class ProductService {
             throw new InvalidUUIDException();
     }
 
-    //TODO try with @Query
     private ProductDto calculatePriceWithVat(ProductDto productDto) {
         if (productDto.getVatID() != null)
             productDto.setPriceWithVat(productDto.getPrice() + (vatService.findById(productDto.getVatID()).getPercentage() / 100.0));
