@@ -20,7 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto implements Serializable {
-    @Schema(description = "id product, if is null will create a new product", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
+    @Schema(description = "id product", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID id;
 
     @Schema(description = "product name,max length 30", example = "Product", required = true)

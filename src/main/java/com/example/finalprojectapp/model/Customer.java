@@ -40,12 +40,21 @@ public class Customer {
     private String description;
 
     @OneToMany
-    @JoinColumn
+    @JoinTable(
+            name = "customer_contact",
+            joinColumns =@JoinColumn(name = "customer_id"),
+            inverseJoinColumns =@JoinColumn(name = "contact_id")
+    )
     private List<Contact> contactList;
 
     @OneToMany
-    @JoinColumn
+    @JoinTable(
+            name = "customer_address",
+            joinColumns =@JoinColumn(name = "customer_id"),
+            inverseJoinColumns =@JoinColumn(name = "address_id")
+    )
     private List<Address> addressList;
+
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateAdded;

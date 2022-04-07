@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Data
 public class ManufacturerDto implements Serializable {
-    @Schema(description = "id manufacturer, if is null will create a new product", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
+    @Schema(description = "id manufacturer", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID id;
     @Schema(description = "manufacturer name, max length 30", example = "SONY", required = true)
     @Length(max = 30)

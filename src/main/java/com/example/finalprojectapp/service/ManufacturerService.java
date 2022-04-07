@@ -1,6 +1,7 @@
 package com.example.finalprojectapp.service;
 
 import com.example.finalprojectapp.dto.ManufacturerDto;
+import com.example.finalprojectapp.exception.InvalidUUIDException;
 import com.example.finalprojectapp.exception.ManufacturerNotFoundException;
 import com.example.finalprojectapp.model.Manufacturer;
 import com.example.finalprojectapp.repository.ManufacturerRepository;
@@ -31,8 +32,8 @@ public class ManufacturerService {
         return modelMapper.map(manufacturerRepository.findById(id).orElseThrow(ManufacturerNotFoundException::new),ManufacturerDto.class);
     }
 
-    public ManufacturerDto save(@Valid ManufacturerDto manufacturerDto) {
-        this.checkIfManufacturerExists(manufacturerDto.getId());
+    public ManufacturerDto saveNew(@Valid ManufacturerDto manufacturerDto) {
+        this.checkIfIdIsEmpty(manufacturerDto);
         return modelMapper.map(manufacturerRepository.save(modelMapper.map(manufacturerDto, Manufacturer.class)),ManufacturerDto.class);
     }
 
@@ -41,8 +42,17 @@ public class ManufacturerService {
         manufacturerRepository.deleteById(id);
     }
 
-    private void checkIfManufacturerExists(UUID manufacturerDtoId) {
-        this.findById(manufacturerDtoId);
+    private void checkIfManufacturerExists(UUID id) {
+        this.findById(id);
     }
 
+    private void checkIfIdIsEmpty(ManufacturerDto manufacturerDto) {
+        if (manufacturerDto.getId() != null)
+            throw new InvalidUUIDException();
+    }
+
+    public ManufacturerDto saveExisting(ManufacturerDto manufacturerDto) {
+        this.checkIfManufacturerExists(manufacturerDto.getId());
+        return modelMapper.map(manufacturerRepository.save(modelMapper.map(manufacturerDto, Manufacturer.class)),ManufacturerDto.class);
+    }
 }
