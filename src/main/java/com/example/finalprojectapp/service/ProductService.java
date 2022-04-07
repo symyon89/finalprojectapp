@@ -1,6 +1,7 @@
 package com.example.finalprojectapp.service;
 
 import com.example.finalprojectapp.dto.ProductDto;
+import com.example.finalprojectapp.exception.InvalidUUIDException;
 import com.example.finalprojectapp.exception.ProductNotFoundException;
 import com.example.finalprojectapp.model.Manufacturer;
 import com.example.finalprojectapp.model.Product;
@@ -33,7 +34,17 @@ public class ProductService {
                 .toList();
     }
 
-    public ProductDto save(@Valid ProductDto productDto) {
+    public ProductDto saveNewProduct(@Valid ProductDto productDto) {
+        Product product = modelMapper.map(productDto, Product.class);
+        checkIfManufacturerExistsAndSetManufacturer(productDto, product);
+        checkIfVatExistsAndSetVat(productDto, product);
+        checkIfIdIsEmpty(productDto);
+        return this.calculatePriceWithVat(modelMapper.map(productRepository.save(product), ProductDto.class));
+    }
+
+
+
+    public ProductDto saveExistingProduct(ProductDto productDto) {
         Product product = modelMapper.map(productDto, Product.class);
         checkIfManufacturerExistsAndSetManufacturer(productDto, product);
         checkIfVatExistsAndSetVat(productDto, product);
@@ -61,8 +72,12 @@ public class ProductService {
     }
 
     private void checkIsProductExists(UUID id) {
-        if (id != null)
             this.findById(id);
+    }
+
+    private void checkIfIdIsEmpty(ProductDto productDto) {
+        if (productDto.getId() != null)
+            throw new InvalidUUIDException();
     }
 
     //TODO try with @Query
@@ -73,4 +88,6 @@ public class ProductService {
             productDto.setPriceWithVat(productDto.getPrice());
         return productDto;
     }
+
+
 }

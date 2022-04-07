@@ -3,12 +3,12 @@ package com.example.finalprojectapp.controller;
 import com.example.finalprojectapp.dto.ProductDto;
 import com.example.finalprojectapp.model.Product;
 import com.example.finalprojectapp.repository.ProductRepository;
-import com.example.finalprojectapp.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.modelmapper.ModelMapper;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,10 +33,6 @@ class ProductControllerTest {
     private MockMvc mvc;
     @Autowired
     private ObjectMapper objectMapper;
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private ProductService productService;
     @Autowired
     private ProductRepository productRepository;
     private Product product;
@@ -70,16 +66,21 @@ class ProductControllerTest {
                 .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
+
         mvc.perform(get("/product")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(List.of(productDto))));
-        mvc.perform(post("/product")
+        mvc.perform(put("/product")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(productDto)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(productDto)));
+        mvc.perform(post("/product")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(product)))
+                .andExpect(status().isOk());
         mvc.perform(get("/product/{id}",product.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

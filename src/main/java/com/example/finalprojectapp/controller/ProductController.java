@@ -46,7 +46,7 @@ public class ProductController {
         return productService.findById(id);
     }
 
-    @Operation(summary = "Post request body", description = "save a product")
+    @Operation(summary = "Post request body", description = "save a new product, id must be empty")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
@@ -54,8 +54,20 @@ public class ProductController {
     }
     )
     @PostMapping
-    public ProductDto save(@RequestBody ProductDto productDto) {
-        return productService.save(productDto);
+    public ProductDto saveNewProduct(@RequestBody ProductDto productDto) {
+        return productService.saveNewProduct(productDto);
+    }
+
+    @Operation(summary = "Put request body", description = "save a existing product")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Internal error")
+    }
+    )
+    @PutMapping
+    public ProductDto saveExistingProduct(@RequestBody ProductDto productDto) {
+        return productService.saveExistingProduct(productDto);
     }
 
     @Operation(summary = "Delete by id", description = "Delete a product by id")
