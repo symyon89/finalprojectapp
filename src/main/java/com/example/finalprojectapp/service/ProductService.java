@@ -1,7 +1,6 @@
 package com.example.finalprojectapp.service;
 
 import com.example.finalprojectapp.dto.ProductDto;
-import com.example.finalprojectapp.exception.InvalidUUIDException;
 import com.example.finalprojectapp.exception.ProductNotFoundException;
 import com.example.finalprojectapp.model.Product;
 import com.example.finalprojectapp.repository.ProductRepository;
