@@ -1,7 +1,9 @@
 package com.example.finalprojectapp.service;
 
+import com.example.finalprojectapp.dto.ManufacturerDto;
 import com.example.finalprojectapp.dto.ProductDto;
 import com.example.finalprojectapp.exception.ProductNotFoundException;
+import com.example.finalprojectapp.model.Manufacturer;
 import com.example.finalprojectapp.model.Product;
 import com.example.finalprojectapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;

@@ -43,10 +43,11 @@ public class Product {
 
     private Double quantity;
 
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private Manufacturer manufacturer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Vat vat;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
