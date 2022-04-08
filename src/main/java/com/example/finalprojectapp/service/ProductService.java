@@ -37,7 +37,7 @@ public class ProductService {
 
 
 
-    public ProductDto saveExistingProduct(ProductDto productDto) {
+    public ProductDto saveExistingProduct(@Valid ProductDto productDto) {
         this.findById(productDto.getId());
         return this.calculatePriceWithVat(modelMapper.map(productRepository.save(modelMapper.map(productDto, Product.class)), ProductDto.class));
     }
