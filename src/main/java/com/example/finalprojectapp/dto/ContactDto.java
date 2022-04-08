@@ -18,8 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 public class ContactDto implements Serializable {
-    @Schema(description = "id manufacturer", example = "74478911-6424-47a7-911c-0daa262144fa", required = true)
-    @NotNull
+    @Schema(description = "id manufacturer", example = "74478911-6424-47a7-911c-0daa262144fa")
     private UUID id;
 
     @Schema(description = "boolean, true if is primary contact, only one contact can be primary", example = "1")
@@ -36,7 +35,7 @@ public class ContactDto implements Serializable {
     @Email
     private String email;
 
-    @Schema(description = "contact phone, max length 12", example = "+40712312313", required = true)
+    @Schema(description = "contact phone, max length 12", example = "+40712312313")
     @Length(max = 12)
     private String phone;
 }
