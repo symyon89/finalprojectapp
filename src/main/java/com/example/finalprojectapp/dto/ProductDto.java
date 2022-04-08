@@ -1,5 +1,6 @@
 package com.example.finalprojectapp.dto;
 
+import com.example.finalprojectapp.model.Manufacturer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
+import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
@@ -21,6 +23,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto implements Serializable {
+    private ModelMapper modelMapper;
     @Schema(description = "id product", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID id;
 
@@ -65,4 +68,7 @@ public class ProductDto implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastDateModified;
 
+    public void setManufacturerDto(Manufacturer manufacturer) {
+        this.manufacturerDto = modelMapper.map(manufacturer,ManufacturerDto.class);
+    }
 }

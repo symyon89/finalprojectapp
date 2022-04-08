@@ -41,7 +41,7 @@ public class Customer {
 
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "customer_contact",
             joinColumns =@JoinColumn(name = "customer_id"),
@@ -49,7 +49,7 @@ public class Customer {
     )
     private List<Contact> contactList;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "customer_address",
             joinColumns =@JoinColumn(name = "customer_id"),

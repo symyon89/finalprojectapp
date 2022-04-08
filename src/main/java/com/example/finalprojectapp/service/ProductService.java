@@ -8,6 +8,7 @@ import com.example.finalprojectapp.model.Product;
 import com.example.finalprojectapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
