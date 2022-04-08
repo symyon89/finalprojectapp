@@ -1,9 +1,10 @@
 package com.example.finalprojectapp.dto;
 
-import com.example.finalprojectapp.exception.InvalidUUIDException;
-import com.example.finalprojectapp.model.Manufacturer;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -51,10 +52,10 @@ public class ProductDto implements Serializable {
     private Double quantity;
 
     @Schema(description = "Manufacturer id, if is null will not associated a manufacturer", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
-    private UUID manufacturerID;
+    private ManufacturerDto manufacturerDto;
 
     @Schema(description = "Vat id, if is null will not associated a vat, and price with vat will be without added value", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
-    private UUID vatID;
+    private VatDto vatDto;
 
     @Schema(description = "product date added",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -64,33 +65,4 @@ public class ProductDto implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastDateModified;
 
-
-
-    public void setManufacturerID(Manufacturer manufacturer) {
-        this.manufacturerID = manufacturer.getId();
-    }
-
-    public void setManufacturerID(String id) {
-        if(id != null && !id.isBlank())
-            try{
-                this.id = UUID.fromString(id);
-            }catch (IllegalArgumentException e){
-                log.error(e.getMessage());
-                throw new InvalidUUIDException();
-            }
-    }
-
-    public void setVatID(VatDto vatDto) {
-        this.vatID = vatDto.getId();
-    }
-
-    public void setVatID(String vatID) {
-        if(vatID != null && !vatID.isBlank())
-            try{
-                this.vatID = UUID.fromString(vatID);
-            }catch (IllegalArgumentException e){
-                log.error(e.getMessage());
-                throw new InvalidUUIDException();
-            }
-    }
 }

@@ -24,10 +24,13 @@ public class Vat {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
+
     @Column(length = 12)
     private String name;
+
     @Column(length = 8)
     private String code;
+
     @NotNull
     @PositiveOrZero
     private Double percentage;

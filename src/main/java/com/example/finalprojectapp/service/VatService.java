@@ -14,6 +14,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.finalprojectapp.config.GenericListMapper.mapList;
+
 @Service
 @RequiredArgsConstructor
 @Validated
@@ -21,14 +23,13 @@ public class VatService {
     private final VatRepository vatRepository;
     private final ModelMapper modelMapper;
 
+
+    public List<VatDto> findAll() {
+        return mapList(vatRepository.findAll(), VatDto.class);
+    }
+
     public VatDto findById(UUID id) {
         return modelMapper.map(vatRepository.findById(id).orElseThrow(VatNotFoundException::new),VatDto.class);
-    }
-    public List<VatDto> findAll() {
-        return vatRepository.findAll()
-                .stream()
-                .map(vat -> modelMapper.map(vat,VatDto.class))
-                .toList();
     }
 
     public VatDto saveNew(@Valid VatDto vatDto) {

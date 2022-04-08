@@ -1,5 +1,6 @@
 package com.example.finalprojectapp.service;
 
+import com.example.finalprojectapp.config.GenericListMapper;
 import com.example.finalprojectapp.dto.ManufacturerDto;
 import com.example.finalprojectapp.exception.InvalidUUIDException;
 import com.example.finalprojectapp.exception.ManufacturerNotFoundException;
@@ -14,6 +15,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.finalprojectapp.config.GenericListMapper.mapList;
+
 @Service
 @Validated
 @RequiredArgsConstructor
@@ -22,10 +25,7 @@ public class ManufacturerService {
     private final ModelMapper modelMapper;
 
     public List<ManufacturerDto> findAll() {
-        return manufacturerRepository.findAll()
-                .stream()
-                .map(manufacturer -> modelMapper.map(manufacturer,ManufacturerDto.class))
-                .toList();
+        return mapList(manufacturerRepository.findAll(),ManufacturerDto.class);
     }
 
     public ManufacturerDto findById(UUID id){

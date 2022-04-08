@@ -3,9 +3,7 @@ package com.example.finalprojectapp.service;
 import com.example.finalprojectapp.dto.ProductDto;
 import com.example.finalprojectapp.exception.InvalidUUIDException;
 import com.example.finalprojectapp.exception.ProductNotFoundException;
-import com.example.finalprojectapp.model.Manufacturer;
 import com.example.finalprojectapp.model.Product;
-import com.example.finalprojectapp.model.Vat;
 import com.example.finalprojectapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,7 +20,6 @@ import java.util.UUID;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final ManufacturerService manufacturerService;
     private final VatService vatService;
     private final ModelMapper modelMapper;
 
@@ -35,21 +32,14 @@ public class ProductService {
     }
 
     public ProductDto saveNewProduct(@Valid ProductDto productDto) {
-        Product product = modelMapper.map(productDto, Product.class);
-        checkIfManufacturerExistsAndSetManufacturer(productDto, product);
-        checkIfVatExistsAndSetVat(productDto, product);
-        checkIfIdIsEmpty(productDto);
-        return this.calculatePriceWithVat(modelMapper.map(productRepository.save(product), ProductDto.class));
+            return this.calculatePriceWithVat(modelMapper.map(productRepository.save(modelMapper.map(productDto, Product.class)), ProductDto.class));
     }
 
 
 
     public ProductDto saveExistingProduct(ProductDto productDto) {
-        Product product = modelMapper.map(productDto, Product.class);
-        checkIfManufacturerExistsAndSetManufacturer(productDto, product);
-        checkIfVatExistsAndSetVat(productDto, product);
-        checkIsProductExists(productDto.getId());
-        return this.calculatePriceWithVat(modelMapper.map(productRepository.save(product), ProductDto.class));
+        this.findById(productDto.getId());
+        return this.calculatePriceWithVat(modelMapper.map(productRepository.save(modelMapper.map(productDto, Product.class)), ProductDto.class));
     }
 
     public ProductDto findById(UUID id) {
@@ -57,36 +47,16 @@ public class ProductService {
     }
 
     public void deleteById(UUID id) {
-        checkIsProductExists(id);
+        this.findById(id);
         productRepository.deleteById(id);
     }
 
-    private void checkIfManufacturerExistsAndSetManufacturer(ProductDto productDto, Product product) {
-        if (productDto.getManufacturerID() != null)
-            product.setManufacturer(modelMapper.map(manufacturerService.findById(productDto.getManufacturerID()), Manufacturer.class));
-    }
-
-    private void checkIfVatExistsAndSetVat(ProductDto productDto, Product product) {
-        if (productDto.getVatID() != null)
-            product.setVat(modelMapper.map(vatService.findById(productDto.getVatID()), Vat.class));
-    }
-
-    private void checkIsProductExists(UUID id) {
-            this.findById(id);
-    }
-
-    private void checkIfIdIsEmpty(ProductDto productDto) {
-        if (productDto.getId() != null)
-            throw new InvalidUUIDException();
-    }
-
     private ProductDto calculatePriceWithVat(ProductDto productDto) {
-        if (productDto.getVatID() != null)
-            productDto.setPriceWithVat(productDto.getPrice() + (vatService.findById(productDto.getVatID()).getPercentage() / 100.0));
+        if (productDto.getVatDto() != null)
+            productDto.setPriceWithVat(productDto.getPrice() + (vatService.findById(productDto.getVatDto().getId()).getPercentage() / 100.0));
         else
             productDto.setPriceWithVat(productDto.getPrice());
         return productDto;
     }
-
 
 }
