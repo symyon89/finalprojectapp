@@ -30,9 +30,12 @@ public class Manufacturer {
     @NotNull
     @Column(length = 30)
     private String name;
+
     private String description;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateAdded;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastDateModified;
 }

@@ -68,7 +68,4 @@ public class ProductDto implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastDateModified;
 
-    public void setManufacturerDto(Manufacturer manufacturer) {
-        this.manufacturerDto = modelMapper.map(manufacturer,ManufacturerDto.class);
-    }
 }

@@ -47,7 +47,6 @@ public class Product {
 
     private Double quantity;
 
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Manufacturer manufacturer;
 
@@ -60,7 +59,4 @@ public class Product {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastDateModified;
 
-    public void setManufacturer(ManufacturerDto manufacturer) {
-        this.manufacturer = modelMapper.map(manufacturer,Manufacturer.class);
-    }
 }
