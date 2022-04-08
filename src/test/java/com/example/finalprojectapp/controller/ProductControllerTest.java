@@ -75,16 +75,17 @@ class ProductControllerTest {
                 .content(objectMapper.writeValueAsString(productDto)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(productDto)));
-        mvc.perform(post("/product")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(product)))
-                .andExpect(status().isOk());
-        mvc.perform(get("/product/{id}",product.getId())
+        mvc.perform(get("/product/{id}",productDto.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(productDto)));
-        mvc.perform(delete("/product/{id}",product.getId())
+        mvc.perform(delete("/product/{id}",productDto.getId())
                         .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        productDto.setId(null);
+        mvc.perform(post("/product")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(productDto)))
                 .andExpect(status().isOk());
 
     }

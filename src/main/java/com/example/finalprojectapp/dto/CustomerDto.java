@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @Data
 public class CustomerDto implements Serializable {
-    @NotNull
     @Schema(description = "id customer", example = "74478911-6424-47a7-911c-0daa262144fa")
     private final UUID id;
 

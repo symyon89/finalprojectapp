@@ -1,7 +1,10 @@
 package com.example.finalprojectapp.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,6 +15,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ManufacturerDto implements Serializable {
     @Schema(description = "id manufacturer", example = "1c263004-6df9-4879-a3d9-9baf22ccdc18")
     private UUID id;

@@ -1,9 +1,7 @@
 package com.example.finalprojectapp.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +15,9 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vat {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -28,7 +29,6 @@ public class Vat {
     @Column(length = 8)
     private String code;
     @NotNull
-    @NotBlank
     @PositiveOrZero
     private Double percentage;
 }
