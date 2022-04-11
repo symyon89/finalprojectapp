@@ -1,10 +1,7 @@
 package com.example.finalprojectapp.controller;
 
-import com.example.finalprojectapp.dto.CustomerDto;
 import com.example.finalprojectapp.dto.InvoiceDto;
-import com.example.finalprojectapp.model.Customer;
 import com.example.finalprojectapp.model.Invoice;
-import com.example.finalprojectapp.repository.CustomerRepository;
 import com.example.finalprojectapp.repository.InvoiceRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,9 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
