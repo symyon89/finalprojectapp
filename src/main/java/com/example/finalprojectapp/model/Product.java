@@ -1,10 +1,8 @@
 package com.example.finalprojectapp.model;
 
 
-import com.example.finalprojectapp.dto.ManufacturerDto;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -21,8 +19,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    @Transient
-    private ModelMapper modelMapper;
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")

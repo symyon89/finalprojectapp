@@ -1,14 +1,12 @@
 package com.example.finalprojectapp.service;
 
-import com.example.finalprojectapp.dto.ManufacturerDto;
+
 import com.example.finalprojectapp.dto.ProductDto;
 import com.example.finalprojectapp.exception.ProductNotFoundException;
-import com.example.finalprojectapp.model.Manufacturer;
-import com.example.finalprojectapp.model.Product;
+import com.example.finalprojectapp.mapper.ProductMapper;
 import com.example.finalprojectapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
+
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -23,29 +21,29 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final VatService vatService;
-    private final ModelMapper modelMapper;
+    private final ProductMapper productMapper;
 
     public List<ProductDto> findAllProducts() {
         return productRepository.findAll()
                 .stream()
-                .map(product -> modelMapper.map(product, ProductDto.class))
+                .map(productMapper::modelToDto)
                 .map(this::calculatePriceWithVat)
                 .toList();
     }
 
     public ProductDto saveNewProduct(@Valid ProductDto productDto) {
-            return this.calculatePriceWithVat(modelMapper.map(productRepository.save(modelMapper.map(productDto, Product.class)), ProductDto.class));
+            return this.calculatePriceWithVat(productMapper.modelToDto(productRepository.save(productMapper.dtoToModel(productDto))));
     }
 
 
 
     public ProductDto saveExistingProduct(@Valid ProductDto productDto) {
         this.findById(productDto.getId());
-        return this.calculatePriceWithVat(modelMapper.map(productRepository.save(modelMapper.map(productDto, Product.class)), ProductDto.class));
+        return this.calculatePriceWithVat(productMapper.modelToDto(productRepository.save(productMapper.dtoToModel(productDto))));
     }
 
     public ProductDto findById(UUID id) {
-        return this.calculatePriceWithVat(modelMapper.map(productRepository.findById(id).orElseThrow(ProductNotFoundException::new), ProductDto.class));
+        return this.calculatePriceWithVat(productMapper.modelToDto(productRepository.findById(id).orElseThrow(ProductNotFoundException::new)));
     }
 
     public void deleteById(UUID id) {
