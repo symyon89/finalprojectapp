@@ -21,6 +21,21 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RestControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<Object> handleCustomerNotFoundException(CustomerNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AddressNotFoundException.class)
+    public ResponseEntity<Object> handleAddressNotFoundException(AddressNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ContactNotFoundException.class)
+    public ResponseEntity<Object> handleContactNotFoundException(ContactNotFoundException e) {
+        return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
+    }
+
     @ExceptionHandler(InvalidUUIDException.class)
     public ResponseEntity<Object> handleInvalidUUIDException(InvalidUUIDException e) {
         return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
