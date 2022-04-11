@@ -19,20 +19,20 @@ import java.util.UUID;
 @Validated
 public class VatService {
     private final VatRepository vatRepository;
-    private final VatMapper vatMapper;
+
 
 
     public List<VatDto> findAll() {
-        return vatMapper.modelToDtos(vatRepository.findAll());
+        return VatMapper.INSTANCE.modelToDtos(vatRepository.findAll());
     }
 
     public VatDto findById(UUID id) {
-        return vatMapper.modelToDto(vatRepository.findById(id).orElseThrow(VatNotFoundException::new));
+        return VatMapper.INSTANCE.modelToDto(vatRepository.findById(id).orElseThrow(VatNotFoundException::new));
     }
 
     public VatDto saveNew(@Valid VatDto vatDto) {
         this.checkIfIdIsEmpty(vatDto);
-        return vatMapper.modelToDto(vatRepository.save(vatMapper.dtoToModel(vatDto)));
+        return VatMapper.INSTANCE.modelToDto(vatRepository.save(VatMapper.INSTANCE.dtoToModel(vatDto)));
     }
 
     public void deleteById(UUID id) {
@@ -51,6 +51,6 @@ public class VatService {
 
     public VatDto saveExisting(VatDto vatDto) {
         this.checkIfVatExists(vatDto.getId());
-        return vatMapper.modelToDto(vatRepository.save(vatMapper.dtoToModel(vatDto)));
+        return VatMapper.INSTANCE.modelToDto(vatRepository.save(VatMapper.INSTANCE.dtoToModel(vatDto)));
     }
 }

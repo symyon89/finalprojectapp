@@ -6,7 +6,6 @@ import com.example.finalprojectapp.exception.ProductNotFoundException;
 import com.example.finalprojectapp.mapper.ProductMapper;
 import com.example.finalprojectapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -21,29 +20,29 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final VatService vatService;
-    private final ProductMapper productMapper;
+
 
     public List<ProductDto> findAllProducts() {
         return productRepository.findAll()
                 .stream()
-                .map(productMapper::modelToDto)
+                .map(ProductMapper.INSTANCE::modelToDto)
                 .map(this::calculatePriceWithVat)
                 .toList();
     }
 
     public ProductDto saveNewProduct(@Valid ProductDto productDto) {
-            return this.calculatePriceWithVat(productMapper.modelToDto(productRepository.save(productMapper.dtoToModel(productDto))));
+            return this.calculatePriceWithVat(ProductMapper.INSTANCE.modelToDto(productRepository.save(ProductMapper.INSTANCE.dtoToModel(productDto))));
     }
 
 
 
     public ProductDto saveExistingProduct(@Valid ProductDto productDto) {
         this.findById(productDto.getId());
-        return this.calculatePriceWithVat(productMapper.modelToDto(productRepository.save(productMapper.dtoToModel(productDto))));
+        return this.calculatePriceWithVat(ProductMapper.INSTANCE.modelToDto(productRepository.save(ProductMapper.INSTANCE.dtoToModel(productDto))));
     }
 
     public ProductDto findById(UUID id) {
-        return this.calculatePriceWithVat(productMapper.modelToDto(productRepository.findById(id).orElseThrow(ProductNotFoundException::new)));
+        return this.calculatePriceWithVat(ProductMapper.INSTANCE.modelToDto(productRepository.findById(id).orElseThrow(ProductNotFoundException::new)));
     }
 
     public void deleteById(UUID id) {
