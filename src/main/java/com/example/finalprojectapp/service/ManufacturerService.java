@@ -48,7 +48,7 @@ public class ManufacturerService {
             throw new InvalidUUIDException();
     }
 
-    public ManufacturerDto saveExisting(ManufacturerDto manufacturerDto) {
+    public ManufacturerDto saveExisting(@Valid ManufacturerDto manufacturerDto) {
         this.checkIfManufacturerExists(manufacturerDto.getId());
         return manufacturerMapper.modelToDto(manufacturerRepository.save(manufacturerMapper.dtoToModel(manufacturerDto)));
     }

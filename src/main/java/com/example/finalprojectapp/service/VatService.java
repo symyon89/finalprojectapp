@@ -50,7 +50,7 @@ public class VatService {
             throw new InvalidUUIDException();
     }
 
-    public VatDto saveExisting(VatDto vatDto) {
+    public VatDto saveExisting(@Valid VatDto vatDto) {
         this.checkIfVatExists(vatDto.getId());
         return vatMapper.modelToDto(vatRepository.save(vatMapper.dtoToModel(vatDto)));
     }
