@@ -44,12 +44,13 @@ class CustomerControllerTest {
                 .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .name("Test")
-                .number("321654")
+                .number("1321654654321")
                 .isActive(true)
                 .isCompany(true)
                 .build();
         customerRepository.deleteAll();
         customer = customerRepository.save(customer);
+
     }
     @Test
     void testCRUD() throws Exception {
@@ -61,29 +62,29 @@ class CustomerControllerTest {
                 .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .name("Test")
-                .number("321654")
+                .number("1321654654321")
                 .isActive(true)
                 .isCompany(true)
                 .build();
-        mvc.perform(get("/contact")
+        mvc.perform(get("/customer")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(List.of(customerDto))));
-        mvc.perform(put("/contact")
+        mvc.perform(put("/customer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customerDto)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(customerDto)));
-        mvc.perform(get("/contact/{id}",customerDto.getId())
+        mvc.perform(get("/customer/{id}",customerDto.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(customerDto)));
-        mvc.perform(delete("/contact/{id}",customerDto.getId())
+        mvc.perform(delete("/customer/{id}",customerDto.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         customerDto.setId(null);
-        mvc.perform(post("/contact")
+        mvc.perform(post("/customer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customerDto)))
                 .andExpect(status().isOk());
