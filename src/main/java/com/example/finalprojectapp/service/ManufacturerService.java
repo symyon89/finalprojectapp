@@ -19,18 +19,19 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ManufacturerService {
     private final ManufacturerRepository manufacturerRepository;
+    private final ManufacturerMapper manufacturerMapper;
 
     public List<ManufacturerDto> findAll() {
-        return ManufacturerMapper.INSTANCE.modelToDtos(manufacturerRepository.findAll());
+        return manufacturerMapper.modelToDtos(manufacturerRepository.findAll());
     }
 
     public ManufacturerDto findById(UUID id){
-        return ManufacturerMapper.INSTANCE.modelToDto(manufacturerRepository.findById(id).orElseThrow(ManufacturerNotFoundException::new));
+        return manufacturerMapper.modelToDto(manufacturerRepository.findById(id).orElseThrow(ManufacturerNotFoundException::new));
     }
 
     public ManufacturerDto saveNew(@Valid ManufacturerDto manufacturerDto) {
         this.checkIfIdIsEmpty(manufacturerDto);
-        return ManufacturerMapper.INSTANCE.modelToDto(manufacturerRepository.save(ManufacturerMapper.INSTANCE.dtoToModel(manufacturerDto)));
+        return manufacturerMapper.modelToDto(manufacturerRepository.save(manufacturerMapper.dtoToModel(manufacturerDto)));
     }
 
     public void deleteById(UUID id) {
@@ -49,6 +50,6 @@ public class ManufacturerService {
 
     public ManufacturerDto saveExisting(ManufacturerDto manufacturerDto) {
         this.checkIfManufacturerExists(manufacturerDto.getId());
-        return ManufacturerMapper.INSTANCE.modelToDto(manufacturerRepository.save(ManufacturerMapper.INSTANCE.dtoToModel(manufacturerDto)));
+        return manufacturerMapper.modelToDto(manufacturerRepository.save(manufacturerMapper.dtoToModel(manufacturerDto)));
     }
 }

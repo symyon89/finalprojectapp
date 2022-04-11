@@ -9,7 +9,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface VatMapper {
-    VatMapper INSTANCE = Mappers.getMapper(VatMapper.class);
     VatDto modelToDto (Vat vat);
     List<VatDto> modelToDtos(List<Vat> vats);
     Vat dtoToModel (VatDto vatDto);
