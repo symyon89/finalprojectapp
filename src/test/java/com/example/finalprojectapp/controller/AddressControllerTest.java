@@ -1,8 +1,8 @@
 package com.example.finalprojectapp.controller;
 
-import com.example.finalprojectapp.dto.VatDto;
-import com.example.finalprojectapp.model.Vat;
-import com.example.finalprojectapp.repository.VatRepository;
+import com.example.finalprojectapp.dto.AddressDto;
+import com.example.finalprojectapp.model.Address;
+import com.example.finalprojectapp.repository.AddressRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,54 +23,67 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class VatControllerTest {
+class AddressControllerTest {
 
     @Autowired
     private MockMvc mvc;
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
-    private VatRepository vatRepository;
-    private Vat vat;
+    private AddressRepository addressRepository;
+    private Address address;
     @BeforeEach
     public void cleanupDatabase() {
-        vat = Vat.builder()
-                .name("19%")
-                .code("standard")
-                .percentage(19D)
+        address = Address.builder()
+                .city("brasov")
+                .country("Romania")
+                .county("Brasov")
+                .number("22A")
+                .otherDetails("Bl3")
+                .isPrimaryBilling(true)
+                .isPrimaryDelivery(true)
+                .postalCode("500213")
+                .street("Principal")
                 .build();
-        vatRepository.deleteAll();
-        vat = vatRepository.save(vat);
+        addressRepository.deleteAll();
+        address = addressRepository.save(address);
     }
     @Test
     void testCRUD() throws Exception {
-        VatDto vatDto = VatDto.builder()
-                .id(vat.getId())
-                .name("19%")
-                .code("standard")
-                .percentage(19D)
+        AddressDto addressDto = AddressDto.builder()
+                .id(address.getId())
+                .city("brasov")
+                .country("Romania")
+                .county("Brasov")
+                .number("22A")
+                .otherDetails("Bl3")
+                .isPrimaryBilling(true)
+                .isPrimaryDelivery(true)
+                .postalCode("500213")
+                .street("Principal")
                 .build();
-        mvc.perform(get("/vat")
+        mvc.perform(get("/address")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(objectMapper.writeValueAsString(List.of(vatDto))));
-        mvc.perform(put("/vat")
+                .andExpect(content().json(objectMapper.writeValueAsString(List.of(addressDto))));
+        mvc.perform(put("/address")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(vatDto)))
+                        .content(objectMapper.writeValueAsString(addressDto)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(vatDto)));
-        mvc.perform(get("/vat/{id}",vatDto.getId())
+                .andExpect(content().json(objectMapper.writeValueAsString(addressDto)));
+        mvc.perform(get("/address/{id}",addressDto.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(vatDto)));
-        mvc.perform(delete("/vat/{id}",vatDto.getId())
+                .andExpect(content().json(objectMapper.writeValueAsString(addressDto)));
+        mvc.perform(delete("/address/{id}",addressDto.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        vatDto.setId(null);
-        mvc.perform(post("/vat")
+        addressDto.setId(null);
+        mvc.perform(post("/address")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(vatDto)))
+                        .content(objectMapper.writeValueAsString(addressDto)))
                 .andExpect(status().isOk());
     }
+
 }

@@ -1,8 +1,11 @@
 package com.example.finalprojectapp.controller;
 
-import com.example.finalprojectapp.dto.VatDto;
-import com.example.finalprojectapp.model.Vat;
-import com.example.finalprojectapp.repository.VatRepository;
+import com.example.finalprojectapp.dto.AddressDto;
+import com.example.finalprojectapp.dto.ContactDto;
+import com.example.finalprojectapp.model.Address;
+import com.example.finalprojectapp.model.Contact;
+import com.example.finalprojectapp.repository.AddressRepository;
+import com.example.finalprojectapp.repository.ContactRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,61 +19,66 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class VatControllerTest {
+class ContactControllerTest {
 
     @Autowired
     private MockMvc mvc;
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
-    private VatRepository vatRepository;
-    private Vat vat;
+    private ContactRepository contactRepository;
+    private Contact contact;
     @BeforeEach
     public void cleanupDatabase() {
-        vat = Vat.builder()
-                .name("19%")
-                .code("standard")
-                .percentage(19D)
+        contact = Contact.builder()
+                .email("asd@asd.com")
+                .name("Gigi")
+                .phone("321564")
+                .isPrimary(true)
                 .build();
-        vatRepository.deleteAll();
-        vat = vatRepository.save(vat);
+        contactRepository.deleteAll();
+        contact = contactRepository.save(contact);
     }
     @Test
     void testCRUD() throws Exception {
-        VatDto vatDto = VatDto.builder()
-                .id(vat.getId())
-                .name("19%")
-                .code("standard")
-                .percentage(19D)
+        ContactDto contactDto = ContactDto.builder()
+                .id(contact.getId())
+                .email("asd@asd.com")
+                .name("Gigi")
+                .phone("321564")
+                .isPrimary(true)
                 .build();
-        mvc.perform(get("/vat")
+        mvc.perform(get("/contact")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(objectMapper.writeValueAsString(List.of(vatDto))));
-        mvc.perform(put("/vat")
+                .andExpect(content().json(objectMapper.writeValueAsString(List.of(contactDto))));
+        mvc.perform(put("/contact")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(vatDto)))
+                        .content(objectMapper.writeValueAsString(contactDto)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(vatDto)));
-        mvc.perform(get("/vat/{id}",vatDto.getId())
+                .andExpect(content().json(objectMapper.writeValueAsString(contactDto)));
+        mvc.perform(get("/contact/{id}",contactDto.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(vatDto)));
-        mvc.perform(delete("/vat/{id}",vatDto.getId())
+                .andExpect(content().json(objectMapper.writeValueAsString(contactDto)));
+        mvc.perform(delete("/contact/{id}",contactDto.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        vatDto.setId(null);
-        mvc.perform(post("/vat")
+        contactDto.setId(null);
+        mvc.perform(post("/contact")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(vatDto)))
+                        .content(objectMapper.writeValueAsString(contactDto)))
                 .andExpect(status().isOk());
     }
+
 }
