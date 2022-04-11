@@ -88,6 +88,10 @@ class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(List.of(productDto))));
+        mvc.perform(post("/product")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(product)))
+                .andExpect(status().isOk());
         mvc.perform(put("/product")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(productDto)))
@@ -100,12 +104,6 @@ class ProductControllerTest {
         mvc.perform(delete("/product/{id}",productDto.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        productDto.setId(null);
-        mvc.perform(post("/product")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(productDto)))
-                .andExpect(status().isOk());
-
     }
 
 }
