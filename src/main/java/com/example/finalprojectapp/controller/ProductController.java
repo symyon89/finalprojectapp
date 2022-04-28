@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @OpenAPIDefinition(info = @Info(title = "Application Controller", description = "Rest controller", version = "1"))
+@CrossOrigin(origins = "${allowed.origins}")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("product")

@@ -1,11 +1,13 @@
 package com.example.finalprojectapp.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -46,9 +48,9 @@ public class CustomerDto implements Serializable {
     @Schema(description = "list of addreses")
     private List<AddressDto> addressList;
 
-    @Schema(description = "customer date added",pattern = "yyyy-MM-dd HH:mm:ss")
+    @Schema(description = "customer date added",pattern = "yyyy-MM-dd HH:mm:ss", example = "2022-04-28 07:35:20")
     private LocalDateTime dateAdded;
 
-    @Schema(description = "last customer date modified",pattern = "yyyy-MM-dd HH:mm:ss")
+    @Schema(description = "last customer date modified",pattern = "yyyy-MM-dd HH:mm:ss", example = "2022-04-28 07:35:20")
     private LocalDateTime lastDateModified;
 }

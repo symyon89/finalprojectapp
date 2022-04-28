@@ -1,5 +1,6 @@
 package com.example.finalprojectapp.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -59,11 +60,9 @@ public class ProductDto implements Serializable {
     private VatDto vatDto;
 
     @Schema(description = "product date added",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private  LocalDateTime dateAdded;
 
     @Schema(description = "last product date modified",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastDateModified;
 
 }
