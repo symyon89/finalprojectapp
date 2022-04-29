@@ -43,7 +43,7 @@ class ContactControllerTest {
                 .email("asd@asd.com")
                 .name("Gigi")
                 .phone("321564")
-                .isPrimary(true)
+                .primary(true)
                 .build();
         contactRepository.deleteAll();
         contact = contactRepository.save(contact);
@@ -55,7 +55,7 @@ class ContactControllerTest {
                 .email("asd@asd.com")
                 .name("Gigi")
                 .phone("321564")
-                .isPrimary(true)
+                .primary(true)
                 .build();
         mvc.perform(get("/contact")
                         .contentType(MediaType.APPLICATION_JSON))

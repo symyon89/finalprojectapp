@@ -1,6 +1,8 @@
 package com.example.finalprojectapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,16 +26,16 @@ public class CustomerDto implements Serializable {
     @Schema(description = "id customer", example = "74478911-6424-47a7-911c-0daa262144fa")
     private UUID id;
 
-    @Schema(description = "boolean, true if is active,", example = "1")
-    private boolean isActive;
+    @Schema(description = "boolean, true if is active,", example = "true")
+    private boolean active;
 
-    @Schema(description = "boolean, true if is active,", example = "1")
-    private boolean isCompany;
+    @Schema(description = "boolean, true if is active,", example = "true")
+    private boolean company;
 
-    @Length(max = 20)
+    @Length(max = 50)
     @NotNull
     @NotBlank
-    @Schema(description = "customer name, max length 20", example = "Alice", required = true)
+    @Schema(description = "customer name, max length 50", example = "Alice", required = true)
     private String name;
 
     @Schema(description = "customer number, max length 20", example = "1321654654321")

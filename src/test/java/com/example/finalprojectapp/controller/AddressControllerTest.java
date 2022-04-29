@@ -40,8 +40,8 @@ class AddressControllerTest {
                 .county("Brasov")
                 .number("22A")
                 .otherDetails("Bl3")
-                .isPrimaryBilling(true)
-                .isPrimaryDelivery(true)
+                .primaryBilling(true)
+                .primaryDelivery(true)
                 .postalCode("500213")
                 .street("Principal")
                 .build();
@@ -57,8 +57,8 @@ class AddressControllerTest {
                 .county("Brasov")
                 .number("22A")
                 .otherDetails("Bl3")
-                .isPrimaryBilling(true)
-                .isPrimaryDelivery(true)
+                .primaryBilling(true)
+                .primaryDelivery(true)
                 .postalCode("500213")
                 .street("Principal")
                 .build();

@@ -21,10 +21,10 @@ public class AddressDto implements Serializable {
     private UUID id;
 
     @Schema(description = "boolean, true if is primary billing address, only one address can be primary", example = "1")
-    private boolean isPrimaryBilling;
+    private boolean primaryBilling;
 
     @Schema(description = "boolean, true if is primary delivery address, only one address can be primary", example = "1")
-    private boolean isPrimaryDelivery;
+    private boolean primaryDelivery;
 
     @Schema(description = "country name, max length 60", example = "Romania", required = true)
     @Length(max = 60)

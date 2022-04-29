@@ -24,13 +24,11 @@ public class Customer {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(columnDefinition = "boolean default false")
-    private boolean isActive;
+    private boolean active;
 
-    @Column(columnDefinition = "boolean default false")
-    private boolean isCompany;
+    private boolean company;
 
-    @Column(length = 20)
+    @Column(length = 50)
     @NotNull
     @NotBlank
     private String name;

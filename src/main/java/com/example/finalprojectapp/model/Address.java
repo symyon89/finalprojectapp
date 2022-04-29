@@ -22,11 +22,9 @@ public class Address {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(columnDefinition = "boolean default false")
-    private boolean isPrimaryBilling;
+    private boolean primaryBilling;
 
-    @Column(columnDefinition = "boolean default false")
-    private boolean isPrimaryDelivery;
+    private boolean primaryDelivery;
 
     @Column(length = 60)
     private String country;

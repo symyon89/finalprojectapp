@@ -45,8 +45,8 @@ class CustomerControllerTest {
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .name("Test")
                 .number("1321654654321")
-                .isActive(true)
-                .isCompany(true)
+                .active(true)
+                .company(true)
                 .build();
         customerRepository.deleteAll();
         customer = customerRepository.save(customer);
@@ -63,8 +63,8 @@ class CustomerControllerTest {
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .name("Test")
                 .number("1321654654321")
-                .isActive(true)
-                .isCompany(true)
+                .active(true)
+                .company(true)
                 .build();
         mvc.perform(get("/customer")
                         .contentType(MediaType.APPLICATION_JSON))
