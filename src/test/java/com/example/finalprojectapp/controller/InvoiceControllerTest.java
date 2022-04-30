@@ -38,8 +38,8 @@ class InvoiceControllerTest {
     public void cleanupDatabase() {
         invoice = Invoice.builder()
                 .customer(null)
-                .invoiceNumber("12")
-                .products(new ArrayList<>())
+                .invoiceNumber(1)
+                .invoiceQuantities(new ArrayList<>())
                 .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
@@ -52,8 +52,8 @@ class InvoiceControllerTest {
         InvoiceDto invoiceDto = InvoiceDto.builder()
                 .id(invoice.getId())
                 .customer(null)
-                .invoiceNumber("12")
-                .products(new ArrayList<>())
+                .invoiceNumber(1)
+                .invoiceQuantities(new ArrayList<>())
                 .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();

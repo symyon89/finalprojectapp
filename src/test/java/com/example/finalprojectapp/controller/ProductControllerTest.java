@@ -1,8 +1,6 @@
 package com.example.finalprojectapp.controller;
 
-import com.example.finalprojectapp.dto.ManufacturerDto;
 import com.example.finalprojectapp.dto.ProductDto;
-import com.example.finalprojectapp.model.Manufacturer;
 import com.example.finalprojectapp.model.Product;
 import com.example.finalprojectapp.repository.ProductRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,12 +36,7 @@ class ProductControllerTest {
     private Product product;
     @BeforeEach
     public void cleanupDatabase() {
-        Manufacturer manufacturer = Manufacturer.builder()
-                .description("China Manufacturer")
-                .name("Chinese name")
-                .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                .build();
+
         product = Product.builder()
                 .name("LG")
                 .sku("5554")
@@ -51,7 +44,7 @@ class ProductControllerTest {
                 .description("best product")
                 .price(2.33)
                 .quantity(10D)
-                .manufacturer(manufacturer)
+                .manufacturer(null)
                 .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
@@ -61,13 +54,7 @@ class ProductControllerTest {
 
     @Test
     void testCRUD() throws Exception {
-        ManufacturerDto manufacturerDto = ManufacturerDto.builder()
-                .id(product.getManufacturer().getId())
-                .description("China Manufacturer")
-                .name("Chinese name")
-                .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                .build();
+
         ProductDto productDto = ProductDto.builder()
                 .id(product.getId())
                 .name("LG")
@@ -77,7 +64,7 @@ class ProductControllerTest {
                 .price(2.33)
                 .priceWithVat(2.33)
                 .quantity(10D)
-                .manufacturer(manufacturerDto)
+                .manufacturer(null)
                 .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();

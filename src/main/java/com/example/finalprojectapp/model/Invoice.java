@@ -26,11 +26,10 @@ public class Invoice {
     @ManyToOne
     private Customer customer;
 
-    @ManyToMany
-    private List<Product> products;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<InvoiceQuantity> invoiceQuantities;
 
-    @Column(length = 30)
-    private String invoiceNumber;
+    private Integer invoiceNumber;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateAdded;

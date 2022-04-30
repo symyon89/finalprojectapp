@@ -6,6 +6,7 @@ import com.example.finalprojectapp.exception.ProductNotFoundException;
 import com.example.finalprojectapp.mapper.ProductMapper;
 import com.example.finalprojectapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -55,7 +56,7 @@ public class ProductService {
 
     private ProductDto calculatePriceWithVat(ProductDto productDto) {
         if (productDto.getVat() != null)
-            productDto.setPriceWithVat(productDto.getPrice() + (vatService.findById(productDto.getVat().getId()).getPercentage() / 100.0));
+            productDto.setPriceWithVat(productDto.getPrice() * ((vatService.findById(productDto.getVat().getId()).getPercentage() / 100)+1));
         else
             productDto.setPriceWithVat(productDto.getPrice());
         return productDto;
