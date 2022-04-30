@@ -77,7 +77,7 @@ class ProductControllerTest {
                 .price(2.33)
                 .priceWithVat(2.33)
                 .quantity(10D)
-                .manufacturerDto(manufacturerDto)
+                .manufacturer(manufacturerDto)
                 .dateAdded(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .lastDateModified(LocalDateTime.parse("2022-04-07 10:10:10",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();

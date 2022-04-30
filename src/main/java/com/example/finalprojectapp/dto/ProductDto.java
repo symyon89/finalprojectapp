@@ -54,10 +54,10 @@ public class ProductDto implements Serializable {
     private Double quantity;
 
     @Schema(description = "Manufacturer object, if is null will not associated a manufacturer")
-    private ManufacturerDto manufacturerDto;
+    private ManufacturerDto manufacturer;
 
     @Schema(description = "Vat object, if is null will not associated a vat, and price with vat will be without added value")
-    private VatDto vatDto;
+    private VatDto vat;
 
     @Schema(description = "product date added",pattern = "yyyy-MM-dd HH:mm:ss")
     private  LocalDateTime dateAdded;

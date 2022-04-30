@@ -7,6 +7,7 @@ import com.example.finalprojectapp.mapper.ProductMapper;
 import com.example.finalprojectapp.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Validated
+@Transactional
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -52,8 +54,8 @@ public class ProductService {
     }
 
     private ProductDto calculatePriceWithVat(ProductDto productDto) {
-        if (productDto.getVatDto() != null)
-            productDto.setPriceWithVat(productDto.getPrice() + (vatService.findById(productDto.getVatDto().getId()).getPercentage() / 100.0));
+        if (productDto.getVat() != null)
+            productDto.setPriceWithVat(productDto.getPrice() + (vatService.findById(productDto.getVat().getId()).getPercentage() / 100.0));
         else
             productDto.setPriceWithVat(productDto.getPrice());
         return productDto;
